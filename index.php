@@ -3,3 +3,4 @@
   <input type="submit" value="Upload Image" name="submit">
 </form>
 
+<a href="consulta.php">Consultas</a>
