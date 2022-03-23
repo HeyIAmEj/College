@@ -1,5 +1,9 @@
+import validation.DocumentCPF;
+
+import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
 
 public class Pessoa {
     private String name;
@@ -11,8 +15,10 @@ public class Pessoa {
 
     private String documentoCPF;
 
+    public Pessoa() {
+    }
 
-    public Pessoa(String fullname, LocalDate birthday) {
+    public Pessoa(String fullname, String birthday) {
         setFullname(fullname);
         setBirthday(birthday);
     }
@@ -42,12 +48,17 @@ public class Pessoa {
         this.lastname = splitted[splitted.length-1];
     }
 
-    public LocalDate getBirthday() {
-        return birthday;
+    public String getBirthday() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String birthdayStr = birthday.format(formatter);
+        return birthdayStr;
     }
 
-    public void setBirthday(LocalDate birthday) {
+    public void setBirthday(String birthdayStr) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate birthday = LocalDate.parse(birthdayStr, formatter);
         this.birthday = birthday;
+
         LocalDate dataAtual = LocalDate.now();
         this.idade = Period.between(birthday, dataAtual).getYears();
     }
@@ -60,21 +71,18 @@ public class Pessoa {
         return documentoCPF;
     }
 
-    public void setDocumentoCPF(String documentoCPF) {
-        try{
-            switch (documentoCPF.length()){
-                case 11:
-                    // without points
-                    break;
-                case 14:
-                    // with points
-                    break;
-                default:
-                    break;
-            }
-        }catch (Exception e){
-            System.out.println("Invalid CPF input");
+    // Recebe CPF sem pontuações
+    public void setDocumentoCPF(String documentoCPF) throws Exception {
+        // Retira as pontuações
+        documentoCPF = documentoCPF
+                .replace(".", "")
+                .replace("-", "");
+
+        DocumentCPF documentCPF = new DocumentCPF(documentoCPF);
+        if (documentCPF.verify()) {
+            this.documentoCPF = documentCPF.imprimeCPF(documentoCPF);
+        }else{
+            throw new Exception("Invalid CPF Input");
         }
-        this.documentoCPF = documentoCPF;
     }
 }

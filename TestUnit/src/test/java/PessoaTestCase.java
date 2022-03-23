@@ -12,8 +12,8 @@ public class PessoaTestCase extends TestCase{
     static void setup() {
         System.out.println("Instanciando Pessoa Teste\n");
         String fullnameTest = "John Doe Roberto Santos";
-        LocalDate birthdayTest = LocalDate.of(1999, 10, 2);
-
+//        LocalDate birthdayTest = LocalDate.of(1999, 10, 2);
+        String birthdayTest = "02/10/1999";
         pessoa = new Pessoa(fullnameTest, birthdayTest);
     }
 
@@ -45,6 +45,15 @@ public class PessoaTestCase extends TestCase{
         Integer expectedAge = 22;
         assertEquals(expectedAge, pessoa.getIdade());
 
+    }
+
+    @Test
+    @DisplayName("Test Valid CPF")
+    void testCPF() throws Exception {
+        String expectedCPF = "66127411041";
+        pessoa.setDocumentoCPF(expectedCPF);
+
+        assertEquals("661.274.110-41", pessoa.getDocumentoCPF());
     }
 
     @Test
