@@ -1,7 +1,6 @@
+import entity.Pessoa;
 import junit.framework.TestCase;
 import org.junit.jupiter.api.*;
-
-import java.time.LocalDate;
 
 public class PessoaTestCase extends TestCase{
     private static Pessoa pessoa;
@@ -10,7 +9,7 @@ public class PessoaTestCase extends TestCase{
 
     @BeforeAll
     static void setup() {
-        System.out.println("Instanciando Pessoa Teste\n");
+        System.out.println("Instanciando entity.Pessoa Teste\n");
         String fullnameTest = "John Doe Roberto Santos";
 //        LocalDate birthdayTest = LocalDate.of(1999, 10, 2);
         String birthdayTest = "02/10/1999";
