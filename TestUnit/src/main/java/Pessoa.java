@@ -9,6 +9,8 @@ public class Pessoa {
     private LocalDate birthday;
     private Integer idade;
 
+    private String documentoCPF;
+
 
     public Pessoa(String fullname, LocalDate birthday) {
         setFullname(fullname);
@@ -54,4 +56,25 @@ public class Pessoa {
         return idade;
     }
 
+    public String getDocumentoCPF() {
+        return documentoCPF;
+    }
+
+    public void setDocumentoCPF(String documentoCPF) {
+        try{
+            switch (documentoCPF.length()){
+                case 11:
+                    // without points
+                    break;
+                case 14:
+                    // with points
+                    break;
+                default:
+                    break;
+            }
+        }catch (Exception e){
+            System.out.println("Invalid CPF input");
+        }
+        this.documentoCPF = documentoCPF;
+    }
 }
